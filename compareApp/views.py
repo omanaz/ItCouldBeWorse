@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from . import forms
 
 # Create your views here.
 def loginView(request):
@@ -19,16 +20,25 @@ def loginView(request):
         form = AuthenticationForm()
     return render(request, 'CompareApp/login.html', {'form': form})
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('accountHome')
+from django.contrib.auth import login
+from . import forms
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from compareApp.models import User
 
-    else:
-        form = UserCreationForm()
-    return render(request, 'CompareApp/login.html', {'form': form})
+class register(CreateView):
+    model = User
+    form_class = forms.fullUser
+    template_name = 'CompareApp/login.html'
+    success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.save(commit=False)
+        user.set_password(form.cleaned_data["password1"])
+        user.save()
+        login(self.request, user)
+        return response
 
 
 def accountHome(request):
