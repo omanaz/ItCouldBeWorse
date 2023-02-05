@@ -1,0 +1,10 @@
+{% extends 'CompareApp/base.html' %}
+{% block title %}It Can Get Worse{% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'CompareApp/default.css' %}">
+{% for item in data %}
+    {{ item }}
+{% endfor %}
+{% endblock %}
