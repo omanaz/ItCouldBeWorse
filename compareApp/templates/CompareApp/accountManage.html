@@ -1,5 +1,45 @@
 {%extends 'compareApp/base.html'%}
-
 {% block content%}
-test
+ <form action="{% url 'earthView' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Button text">
+  </form>
+  
+{% comment %}
+  <h1>Edit User Profile</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Change Password</h2>
+    {{ change_password_form.as_p }}
+    <button type="submit">Change Password</button>
+  </form>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Change Username</h2>
+    {{ change_username_form.as_p }}
+    <button type="submit">Change Username</button>
+  </form>
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <h2>Change Profile Picture</h2>
+    {{ change_profile_picture_form.as_p }}
+    <button type="submit">Change Profile Picture</button>
+  </form>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Change Home Longitude</h2>
+    {{ change_home_long_form.as_p }}
+    <button type="submit">Change Home Longitude</button>
+  </form>
+
+  <form method="post">
+    {% csrf_token %}
+    <h2>Change Home Latitude</h2>
+    {{ change_home_lat_form.as_p }}
+    <button type="submit">Change Home Latitude</button>
+  </form> {% endcomment %}
 {% endblock %}

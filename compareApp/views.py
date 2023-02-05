@@ -1,11 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from . import forms
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
+from compareApp.models import User
 
-# Create your views here.
+
+# Login and Register Views
 def loginView(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -19,13 +23,6 @@ def loginView(request):
     else:
         form = AuthenticationForm()
     return render(request, 'CompareApp/login.html', {'form': form})
-
-from django.contrib.auth import login
-from . import forms
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from compareApp.models import User
-
 class register(CreateView):
     model = User
     form_class = forms.fullUser
@@ -39,12 +36,17 @@ class register(CreateView):
         user.save()
         login(self.request, user)
         return response
-
-
+#####
+#Simple Page Views
 def accountHome(request):
     #data = get_data()
     return render(request, 'CompareApp/accountManage.html')
+def earthView(request):
+    return render(request, 'CompareApp/landingPage.html')
+    
 
+
+### API Views
 @login_required
 def get_data():
     # Your code to retrieve the data you want to return
