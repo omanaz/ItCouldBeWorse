@@ -9,7 +9,7 @@ from django.views.generic import CreateView
 from compareApp.models import User
 
 
-# Login and Register Views
+# User: Login Register Change data Views
 def loginView(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -36,14 +36,31 @@ class register(CreateView):
         user.save()
         login(self.request, user)
         return response
-#####
-#Simple Page Views
+from django.shortcuts import render, redirect
+from .forms import UserUpdateForm
+
 def accountHome(request):
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('accountHome')
+    else:
+        form = UserUpdateForm(instance=request.user)
+    return render(request, 'CompareApp/accountManage.html', {'form': form})
+
+
+
+
+#####
+
+#Simple Page Views
+#def accountHome(request):
     #data = get_data()
-    return render(request, 'CompareApp/accountManage.html')
+    #return render(request, 'CompareApp/accountManage.html')
 def earthView(request):
     return render(request, 'CompareApp/landingPage.html')
-    
+#####    
 
 
 ### API Views
@@ -53,3 +70,4 @@ def get_data():
     data = [1, 2, 3, 4, 5]
 
     return JsonResponse(data, safe=False)
+#####    

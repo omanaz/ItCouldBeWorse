@@ -2,6 +2,12 @@ from django import forms
 from . import models
 from django.contrib.auth.forms import UserCreationForm
 
+class UserUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ['homeLong',"homeLat"]
+
+
 class fullUser(UserCreationForm):
     #homeLong = forms.FloatField()
     #homeLat = forms.FloatField()
