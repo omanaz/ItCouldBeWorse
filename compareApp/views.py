@@ -12,7 +12,7 @@ from compareApp.models import User
 # User: Login Register Change data Views
 def loginView(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = forms.LoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -21,7 +21,7 @@ def loginView(request):
                 login(request, user)
                 return redirect('earthView')
     else:
-        form = AuthenticationForm()
+        form = forms.LoginForm()
     return render(request, 'compareApp/login.html', {'form': form})
 class register(CreateView):
     model = User
@@ -85,7 +85,7 @@ def getData(request):
         # Get the hour-by-hour forecast data from the forecastHourly URL
         forecast_hourly_response = requests.get(forecast_hourly_url)
         forecast_hourly_data = forecast_hourly_response.json()
-        print(forecast_hourly_data)
+        #print(forecast_hourly_data)
         return {'forecast': forecast_data, 'forecast_hourly': forecast_hourly_data}
     
         data = response.json()

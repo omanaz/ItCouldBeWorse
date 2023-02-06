@@ -1,13 +1,30 @@
 {% extends 'compareApp/base.html' %}
 {% block title %}It Can Get Worse{% endblock %}
-{% block content %}
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Login</button>
-</form>
-    <br>
-  <form action="{% url 'register' %}" method="get">
-    <button type="submit">Create Account</button>
-  </form>
+
+{% block styles %}
+  {% load static%}
+  <link rel="stylesheet" type="text/css" href="{% static 'compareApp/login.css' %}">
 {% endblock %}
+{% block content %} 
+<div class="modal-container">
+  <div class="modal-content">
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type = "submit" data-text="Awesome" class="button" >
+        <span class="actual-text">&nbsp;Enter&nbsp;</span>
+        <span class="hover-text" aria-hidden="true">&nbsp;Enter&nbsp;</span>
+      </button>
+    </form>
+    {% if "LoginForm" in form %}
+    <form action="{% url 'register' %}" method="get">
+      <button type = "submit" data-text="Awesome" class="button" id="button2">
+        <span class="actual-text">&nbsp;Create&nbsp;</span>
+        <span class="hover-text" aria-hidden="true">&nbsp;Create&nbsp;</span>
+      </button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
