@@ -2,9 +2,14 @@
 {% block title %}It Can Get Worse{% endblock %}
 
 {% block content %}
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'CompareApp/default.css' %}">
-{% for item in data %}
-    {{ item }}
-{% endfor %}
+{% if data.error %}
+  <p>{{ data.error }}</p>
+{% else %}
+  <h1>API Data</h1>
+  <ul>
+    {% for item in data %}
+      <li>{{ item }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
 {% endblock %}

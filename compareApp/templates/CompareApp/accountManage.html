@@ -1,4 +1,6 @@
 {%extends 'compareApp/base.html'%}
+{% block title %}Account Management{% endblock %}
+
 {% block content%}
  <form action="{% url 'earthView' %}" method="post">
     {% csrf_token %}

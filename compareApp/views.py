@@ -59,15 +59,38 @@ def accountHome(request):
     #data = get_data()
     #return render(request, 'CompareApp/accountManage.html')
 def earthView(request):
-    return render(request, 'compareApp/landingPage.html')
+    data = getData(request)
+    return render(request, 'compareApp/landingPage.html', {'data':data})
 #####    
 
 
 ### API Views
+import requests
 @login_required
-def get_data():
-    # Your code to retrieve the data you want to return
-    data = [1, 2, 3, 4, 5]
-
-    return JsonResponse(data, safe=False)
+def getData(request):
+    user = request.user
+    if user.is_authenticated:
+        # Access the field data of the logged-in user
+        Lat = user.homeLat
+        Long = user.homeLong
+        response = requests.get(f"https://api.weather.gov/points/{Lat},{Long}")
+        properties = response.json()["properties"]
+        # Get the forecast URL from the properties object
+        forecast_url = properties["forecast"]
+        # Get the hour-by-hour forecast URL from the properties object
+        forecast_hourly_url = properties["forecastHourly"]
+        # Get the forecast data from the forecast URL
+        forecast_response = requests.get(forecast_url)
+        forecast_data = forecast_response.json()
+        # Get the hour-by-hour forecast data from the forecastHourly URL
+        forecast_hourly_response = requests.get(forecast_hourly_url)
+        forecast_hourly_data = forecast_hourly_response.json()
+        print(forecast_hourly_data)
+        return {'forecast': forecast_data, 'forecast_hourly': forecast_hourly_data}
+    
+        data = response.json()
+        return data
+    else:
+        # Return an error message for unauthenticated users
+        return {'error': 'Please log in to access the API data.'}
 #####    

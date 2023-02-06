@@ -1,6 +1,13 @@
+/*Color Guide
+Earth Background = #1C6758
+Earth Offcolor = #3D8361
+Tan Accent = #D6CDA4
+Offwhite = #EEF2E6
+
+*/
 body{
-    background-color: #3E323C;
-    color: #fff;
+    background-color: #1C6758;
+    color: #EEF2E6;
     padding: 25px;
     font-family: 'El Messiri', Arial, Helvetica, sans-serif;
 }
