@@ -19,7 +19,7 @@ def loginView(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('accountHome')
+                return redirect('earthView')
     else:
         form = AuthenticationForm()
     return render(request, 'compareApp/login.html', {'form': form})
@@ -27,7 +27,7 @@ class register(CreateView):
     model = User
     form_class = forms.fullUser
     template_name = 'CompareApp/login.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('earthView')
 
     def form_valid(self, form):
         response = super().form_valid(form)
