@@ -22,7 +22,7 @@ def loginView(request):
                 return redirect('accountHome')
     else:
         form = AuthenticationForm()
-    return render(request, 'CompareApp/login.html', {'form': form})
+    return render(request, 'compareApp/login.html', {'form': form})
 class register(CreateView):
     model = User
     form_class = forms.fullUser
@@ -47,7 +47,7 @@ def accountHome(request):
             return redirect('accountHome')
     else:
         form = UserUpdateForm(instance=request.user)
-    return render(request, 'CompareApp/accountManage.html', {'form': form})
+    return render(request, 'compareApp/accountManage.html', {'form': form})
 
 
 
@@ -59,7 +59,7 @@ def accountHome(request):
     #data = get_data()
     #return render(request, 'CompareApp/accountManage.html')
 def earthView(request):
-    return render(request, 'CompareApp/landingPage.html')
+    return render(request, 'compareApp/landingPage.html')
 #####    
 
 
