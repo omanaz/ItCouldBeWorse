@@ -85,8 +85,12 @@ def getData(request):
         # Get the hour-by-hour forecast data from the forecastHourly URL
         forecast_hourly_response = requests.get(forecast_hourly_url)
         forecast_hourly_data = forecast_hourly_response.json()
-        #print(forecast_hourly_data)
-        return {'forecast': forecast_data, 'forecast_hourly': forecast_hourly_data}
+        periods = forecast_data["properties"]["periods"]
+        for i in periods:
+            print(i)
+            print('------------------------------------------------------')
+        #print(periods)
+        return {'periods':periods}
     
         data = response.json()
         return data

@@ -7,9 +7,9 @@
 {% else %}
   <h1>API Data</h1>
   <ul>
-    {% for item in data %}
-      <li>{{ item }}</li>
-    {% endfor %}
+    {% for period in data.periods %}
+    <p>{{ period.name }} : <b>{{ period.temperature }}{{ period.temperatureUnit }} </b> {{period.detailedForecast}} </p>
+  {% endfor %}
   </ul>
 {% endif %}
 {% endblock %}
