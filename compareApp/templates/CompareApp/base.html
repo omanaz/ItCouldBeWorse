@@ -7,16 +7,18 @@
     <link rel="stylesheet" type="text/css" href="{% static 'compareApp/default.css' %}">
     {% block styles %}{% endblock %}
   </head>
-  <body> <!-- not yet implemented
+  <body> 
+    {% if showbanner %}
     <header>
       <nav>
         <ul>
-          <li><a href="login">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a id="bottone1" href="{% url 'login' %}">Login</a></li>
+          <li><a id="bottone1" href="{% url 'earthView' %}">Weather</a></li>
+          <li><a id="bottone1" href="{% url 'accountHome' %}">Account</a></li>
         </ul>
       </nav>
-    </header>-->
+    </header>
+    {%endif%}
 
     <main>
       {% block content %}

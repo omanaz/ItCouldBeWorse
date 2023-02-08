@@ -52,4 +52,54 @@ body{
     transition: max-height 0.5s ease-out;
     max-height: 0;
   }
-
+  /*Nav Elements Bar CSS*/
+  nav ul {
+    z-index: 100;
+    height: 4 0px;
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    background-color: #3D8361;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex; /* this will make the list items side by side */
+    justify-content: left; 
+  }
+  nav li{
+    padding-right: 10px;
+  }
+  nav li:first-child {
+    margin-left: 0;
+  }
+  nav li:last-child {
+    margin-right: 0;
+  }
+  /*Nav Buttons CSS*/
+  #bottone1 {
+    padding-left: 23px;
+    padding-right: 23px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+    border-radius: 9px;
+    background: #1C6758;
+    border: none;
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.4s;
+   }
+   
+   #bottone1:hover {
+    box-shadow: 7px 5px 56px -14px #fff;
+   }
+   
+   #bottone1:active {
+    transform: scale(0.97);
+    box-shadow: 7px 5px 56px -10px #fff;
+   }
+   a{
+    text-decoration: none;
+    color: #fff;
+   }

@@ -16,7 +16,7 @@
         <span class="hover-text" aria-hidden="true">&nbsp;Enter&nbsp;</span>
       </button>
     </form>
-    {% if "LoginForm" in form %}
+    {% if formname %}
     <form action="{% url 'register' %}" method="get">
       <button type = "submit" data-text="Awesome" class="button" id="button2">
         <span class="actual-text">&nbsp;Create&nbsp;</span>

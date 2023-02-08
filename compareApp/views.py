@@ -22,7 +22,7 @@ def loginView(request):
                 return redirect('earthView')
     else:
         form = forms.LoginForm()
-    return render(request, 'compareApp/login.html', {'form': form})
+    return render(request, 'compareApp/login.html', {'form': form, 'formname': 'login'})
 class register(CreateView):
     model = User
     form_class = forms.fullUser
@@ -47,7 +47,7 @@ def accountHome(request):
             return redirect('accountHome')
     else:
         form = UserUpdateForm(instance=request.user)
-    return render(request, 'compareApp/accountManage.html', {'form': form})
+    return render(request, 'compareApp/accountManage.html', {'form': form, 'showbanner':True})
 
 
 
@@ -60,7 +60,7 @@ def accountHome(request):
     #return render(request, 'CompareApp/accountManage.html')
 def earthView(request):
     data = getData(request)
-    return render(request, 'compareApp/landingPage.html', {'data':data})
+    return render(request, 'compareApp/landingPage.html', {'data':data, 'showbanner':True})
 #####    
 
 
@@ -69,7 +69,10 @@ import requests
 @login_required
 def getData(request):
     user = request.user
+    broken = True
     if user.is_authenticated:
+        if broken:
+            return {"periods": [10,11]}
         # Access the field data of the logged-in user
         Lat = user.homeLat
         Long = user.homeLong
@@ -86,9 +89,9 @@ def getData(request):
         forecast_hourly_response = requests.get(forecast_hourly_url)
         forecast_hourly_data = forecast_hourly_response.json()
         periods = forecast_data["properties"]["periods"]
-        for i in periods:
-            print(i)
-            print('------------------------------------------------------')
+        #for i in periods:
+         #   print(i)
+          #  print('------------------------------------------------------')
         #print(periods)
         return {'periods':periods}
     
