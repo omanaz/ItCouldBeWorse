@@ -7,10 +7,11 @@
 {% else %}
 <br>
   <h1>API Data</h1>
+   Your Current Temperature: {{data.current.temp_f}} F
   <ul>
-    {% for period in data.periods %}
-    <p>{{ period.name }} : <b>{{ period.temperature }}{{ period.temperatureUnit }} </b> {{period.detailedForecast}} </p>
+    {% for period in data.forecast %}
+    <p>{{ period.date}}: Max: <b>{{ period.day.maxtemp_f }}</b> Min: <b>{{ period.day.mintemp_f }} </b> Avg: {{period.day.avgtemp_f}}</p>
   {% endfor %}
   </ul>
-{% endif %}
+{% endif %} 
 {% endblock %}

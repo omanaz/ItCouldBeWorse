@@ -1,8 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+import datetime
 from . import forms
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -38,7 +37,6 @@ class register(CreateView):
         return response
 from django.shortcuts import render, redirect
 from .forms import UserUpdateForm
-
 def accountHome(request):
     if request.method == 'POST':
         form = UserUpdateForm(request.POST, instance=request.user)
@@ -48,12 +46,7 @@ def accountHome(request):
     else:
         form = UserUpdateForm(instance=request.user)
     return render(request, 'compareApp/accountManage.html', {'form': form, 'showbanner':True})
-
-
-
-
 #####
-
 #Simple Page Views
 #def accountHome(request):
     #data = get_data()
@@ -62,38 +55,26 @@ def earthView(request):
     data = getData(request)
     return render(request, 'compareApp/landingPage.html', {'data':data, 'showbanner':True})
 #####    
-
-
 ### API Views
 import requests
 @login_required
 def getData(request):
     user = request.user
-    broken = True
+    broken = False
     if user.is_authenticated:
         if broken:
             return {"periods": [10,11]}
         # Access the field data of the logged-in user
         Lat = user.homeLat
         Long = user.homeLong
-        response = requests.get(f"https://api.weather.gov/points/{Lat},{Long}")
-        properties = response.json()["properties"]
-        # Get the forecast URL from the properties object
-        forecast_url = properties["forecast"]
-        # Get the hour-by-hour forecast URL from the properties object
-        forecast_hourly_url = properties["forecastHourly"]
-        # Get the forecast data from the forecast URL
-        forecast_response = requests.get(forecast_url)
-        forecast_data = forecast_response.json()
-        # Get the hour-by-hour forecast data from the forecastHourly URL
-        forecast_hourly_response = requests.get(forecast_hourly_url)
-        forecast_hourly_data = forecast_hourly_response.json()
-        periods = forecast_data["properties"]["periods"]
-        #for i in periods:
-         #   print(i)
-          #  print('------------------------------------------------------')
-        #print(periods)
-        return {'periods':periods}
+        APIKey= "c769a1059b5e4ce689841344230902"
+        exclusion = "current,minutely,hourly,alerts"
+        response = requests.get(f"https://api.weatherapi.com/v1/forecast.json?key={APIKey}&q={Lat},{Long}&days=10&aqi=no&alerts=no")
+        current = response.json()['current']
+        forecast = response.json()['forecast']['forecastday']
+        #print(current)
+        print(forecast)
+        return {'current':current, "forecast":forecast}
     
         data = response.json()
         return data
