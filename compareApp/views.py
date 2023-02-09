@@ -69,12 +69,12 @@ def getData(request):
         Long = user.homeLong
         APIKey= "c769a1059b5e4ce689841344230902"
         exclusion = "current,minutely,hourly,alerts"
-        response = requests.get(f"https://api.weatherapi.com/v1/forecast.json?key={APIKey}&q={Lat},{Long}&days=10&aqi=no&alerts=no")
+        response = requests.get(f"https://api.weatherapi.com/v1/forecast.json?key={APIKey}&q={Lat},{Long}&days=8&aqi=no&alerts=no")
         current = response.json()['current']
         forecast = response.json()['forecast']['forecastday']
         #print(current)
         print(forecast)
-        return {'current':current, "forecast":forecast}
+        return {'Lat':Lat, 'Long': Long, 'current':current, "forecast":forecast}
     
         data = response.json()
         return data

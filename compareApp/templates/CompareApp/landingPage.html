@@ -1,17 +1,28 @@
 {% extends 'compareApp/base.html' %}
 {% block title %}It Can Get Worse{% endblock %}
 
+{% block styles %}
+  {% load static%}
+  <link rel="stylesheet" type="text/css" href="{% static 'compareApp/landingPage.css' %}">
+{% endblock %}
 {% block content %}
 {% if data.error %}
   <p>{{ data.error }}</p>
 {% else %}
 <br>
-  <h1>API Data</h1>
-   Your Current Temperature: {{data.current.temp_f}} F
+  <h2>The Weather for {{data.Lat}} by {{data.Long}} on {% now "D jS F Y H:i" %}</h2><br><br>
+   {% comment %} Your Current Temperature: {{data.current.temp_f}} F {% endcomment %}
   <ul>
     {% for period in data.forecast %}
-    <p>{{ period.date}}: Max: <b>{{ period.day.maxtemp_f }}</b> Min: <b>{{ period.day.mintemp_f }} </b> Avg: {{period.day.avgtemp_f}}</p>
+    <li>
+    <div class="card">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="card-inner"><br><br><br><h3>{{ period.date}}</h3><p> Max: <b>{{ period.day.maxtemp_f }}</b> °F <br>Min: <b>{{ period.day.mintemp_f }}</b> °F <br>Avg: <b>{{period.day.avgtemp_f}}</b> °F</p></div>
+    </div></li>
   {% endfor %}
   </ul>
 {% endif %} 
+  <script src="{% static 'compareApp/landingPage.js' %}"></script>
+
 {% endblock %}
