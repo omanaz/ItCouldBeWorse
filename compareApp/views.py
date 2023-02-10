@@ -68,16 +68,13 @@ def getData(request):
         Lat = user.homeLat
         Long = user.homeLong
         APIKey= "c769a1059b5e4ce689841344230902"
-        exclusion = "current,minutely,hourly,alerts"
         response = requests.get(f"https://api.weatherapi.com/v1/forecast.json?key={APIKey}&q={Lat},{Long}&days=8&aqi=no&alerts=no")
         current = response.json()['current']
         forecast = response.json()['forecast']['forecastday']
         #print(current)
-        print(forecast)
-        return {'Lat':Lat, 'Long': Long, 'current':current, "forecast":forecast}
-    
-        data = response.json()
-        return data
+        # cheeseresponse = requests.get("https://cheese-api.onrender.com/random").json()
+        # print(cheeseresponse)
+        return {'Lat':Lat, 'Long': Long, 'current':current, "forecast":forecast, }#"cheese":cheeseresponse}
     else:
         # Return an error message for unauthenticated users
         return {'error': 'Please log in to access the API data.'}
