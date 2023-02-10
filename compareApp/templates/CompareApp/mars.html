@@ -1,0 +1,26 @@
+{% extends 'compareApp/base.html' %}
+{% block title %}It Could Be Mars{% endblock %}
+
+{% block content %}
+{% if data.error %}
+  <p>{{ data.error }}</p>
+{% else %}
+{{data.mars.max_temp}}
+{% comment %} <br>
+  <h2>The Weather for {{data.Lat}} by {{data.Long}} on {% now "D jS F Y H:i" %}</h2><br><br> {% endcomment %}
+   {% comment %} Your Current Temperature: {{data.current.temp_f}} F {% endcomment %}
+  {% comment %} <ul>
+    {% for period in data.forecast %}
+    <li>
+    <div class="card">
+      <div class="circle"></div>
+      <div class="circle"></div>
+      <div class="card-inner"><br><br><br><h3>{{ period.date}}</h3><p> Max: <b>{{ period.day.maxtemp_f }}</b> °F <br>Min: <b>{{ period.day.mintemp_f }}</b> °F <br>Avg: <b>{{period.day.avgtemp_f}}</b> °F</p></div>
+    </div></li>
+  {% endfor %}
+  </ul> {% endcomment %}
+  <iframe src='https://mars.nasa.gov/layout/embed/image/mslweather/' width='800' height='530'  scrolling='no' frameborder='0'></iframe>
+{% endif %} 
+
+
+{% endblock %}

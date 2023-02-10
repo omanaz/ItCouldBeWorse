@@ -52,13 +52,16 @@ def accountHome(request):
     #data = get_data()
     #return render(request, 'CompareApp/accountManage.html')
 def earthView(request):
-    data = getData(request)
+    data = getEarthData(request)
     return render(request, 'compareApp/landingPage.html', {'data':data, 'showbanner':True})
+def marsView(request):
+    data = getMarsWeather(request)
+    return render(request, 'compareApp/mars.html', {'data': data})
 #####    
 ### API Views
 import requests
 @login_required
-def getData(request):
+def getEarthData(request):
     user = request.user
     broken = False
     if user.is_authenticated:
@@ -75,6 +78,24 @@ def getData(request):
         # cheeseresponse = requests.get("https://cheese-api.onrender.com/random").json()
         # print(cheeseresponse)
         return {'Lat':Lat, 'Long': Long, 'current':current, "forecast":forecast, }#"cheese":cheeseresponse}
+    else:
+        # Return an error message for unauthenticated users
+        return {'error': 'Please log in to access the API data.'}
+@login_required
+def getMarsWeather(request):
+    user = request.user
+    broken = False
+    if user.is_authenticated:
+        if broken:
+            return {"periods": [10,11]}
+        # Access the field data of the logged-in user
+        response = requests.get(f"http://marsweather.ingenology.com/v1/latest/")
+        print(response)
+        mars = response.json()
+        #print(current)
+        # cheeseresponse = requests.get("https://cheese-api.onrender.com/random").json()
+        # print(cheeseresponse)
+        return { 'mars':mars }#"cheese":cheeseresponse}
     else:
         # Return an error message for unauthenticated users
         return {'error': 'Please log in to access the API data.'}
