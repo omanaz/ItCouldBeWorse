@@ -5,6 +5,7 @@
     <title>{% block title %}Default Title{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'compareApp/default.css' %}">
+    <script src="https://kit.fontawesome.com/06d2dc652b.js" crossorigin="anonymous"></script>
     {% block styles %}{% endblock %}
   </head>
   <body> 
@@ -12,9 +13,10 @@
     <header>
       <nav>
         <ul>
-          <li><a id="bottone1" href="{% url 'login' %}">Login</a></li>
-          <li><a id="bottone1" href="{% url 'earthView' %}">Weather</a></li>
-          <li><a id="bottone1" href="{% url 'accountHome' %}">Account</a></li>
+          <li><a id="bottone1" href="{% url 'login' %}"><i class="fas fa-angle-right"></i> Login</a></li>
+          <li><a id="bottone1" href="{% url 'earthView' %}"><i class="fas fa-cloud"></i> Weather</a></li>
+          <li><a id="bottone1" href="{% url 'accountHome' %}"><i class="fa-solid fa-house"></i> Account</a></li>
+          <li><i class="fas fa-ringed-planet"></i></li>
         </ul>
       </nav>
     </header>
