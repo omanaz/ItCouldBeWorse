@@ -100,3 +100,6 @@ def getMarsWeather(request):
         # Return an error message for unauthenticated users
         return {'error': 'Please log in to access the API data.'}
 #####    
+### Base Views
+def commerce_view(request):
+    return render(request, 'compareApp/map.html')

@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
+#Django git ignores
 db.sqlite3
 *__pycache__/
 migrations
